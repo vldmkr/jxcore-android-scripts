@@ -15,15 +15,17 @@ CHECK() {
   command -v $1 > /dev/null && [ $? -eq 0 ] || { LOG $RED_COLOR "$1 is required, but it is not installed. Aborting!\n"; exit 1; }
 }
 
-if [ $# -eq 2 ]; then
+if [ $# -eq 3 ]; then
   ANDROID_SDK=$1
   ANDROID_NDK=$2
+  VERSION=$3
 else
-  LOG $RED_COLOR "Function call requires paths to Android SDK and Android NDK\n"; exit 1
+  LOG $RED_COLOR "Function call requires paths to Android SDK, Android NDK and version number X.Y.Z\n"; exit 1
 fi 
 
 echo "sdk.dir=$ANDROID_SDK" > local.properties
 echo "ndk.dir=$ANDROID_NDK" >> local.properties
+sed -i "/versionName \"/c\        versionName \"$VERSION\"" app/build.gradle
 chmod +x gradlew 
 ./gradlew build
 

@@ -31,8 +31,10 @@ get_jxcore_bin.sh $ANDROID_SDK
 
 #### Building APK
 ```sh
-build_jxcore_service.sh $ANDROID_SDK $ANDROID_NDK
+build_jxcore_service.sh $ANDROID_SDK $ANDROID_NDK <X.Y.Z>
 ```
 #### JS here:
+#### ATTENTION! Do not modify jxcore_module.js
 ```
 strem-engine/app/src/main/assets/www/jxcore/
+```
