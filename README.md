@@ -5,18 +5,39 @@ export ANDROID_NDK=<path to your Android Ndk like $ANDROID_SDK/ndk-bundle>
 ```
 
 #### Building jxcore
+
 ```sh
 git clone https://github.com/jxcore/jxcore.git
 jxcore/build_scripts/android-configure.sh $ANDROID_NDK
 jxcore/build_scripts/android_compile.sh $ANDROID_NDK
 ```
 
-#### Building jxcore cordova core
+##### ARM64
+
+By default build script (SM - static library) doesn't compile for ARM64. In order to enable it, edit build_scripts/android_compile.sh file:
+
+replace
+```sh
+ARM64=0 #out_arm64_droid
+```
+to 
+```sh
+ARM64=out_arm64_droid
+```
+
+For more information see [How to Compile](https://github.com/jxcore/jxcore/blob/master/doc/Android_Compile.md) document.
+
+#### Building jxcore-cordova binaries
+Refresh `jxcore-cordova/src/android/jxcore-binaries` folder contents:
 ```sh
 git clone https://github.com/jxcore/jxcore-cordova.git
 cp -f /jxcore/out_android/android/bin/* jxcore-cordova/src/android/jxcore-binaries/
+```
+Recompile .so files
+```sh
 (cd jxcore-cordova-master/src/android/jni; $ANDROID_NDK/ndk-build) 
 ```
+Get your binaries from `jxcore-cordova/src/android/libs`
 
 #### Installing libjxcore.so
 ```sh
