@@ -73,3 +73,17 @@ build_jxcore_service.sh $ANDROID_SDK $ANDROID_NDK <X.Y.Z>
 <app-name>/app/src/main/assets/www/jxcore/
 ```
 #### JS - Java bindings are in the jxcore_module.js file.
+
+### jxcore ARM64 fixes
+#### libuv fixes
+[Android 5.0 does not have pthread_cond_timedwait_monotonic_np](https://github.com/libuv/libuv/issues/172)
+
+[The corresponding commit](https://github.com/ljbade/libuv-1/commit/a23d5b4f7a0f803e23ff9df6a57ee416d9b31610)
+
+This feature is implemented at `deps/uv/src/unix/thread.c'
+
+#### cares fixes
+[API to get android system properties is removed in arm64 platforms](http://stackoverflow.com/questions/28413530/api-to-get-android-system-properties-is-removed-in-arm64-platforms)
+
+This feature is implemented at `jxcore-android-scripts/deps/cares/src/android_api21.h` and included in `jxcore-android-scripts/deps/cares/src/ares_init.c`
+
