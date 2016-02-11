@@ -5,6 +5,7 @@ export ANDROID_NDK=<path to your Android Ndk like $ANDROID_SDK/ndk-bundle>
 ```
 
 #### Building jxcore
+For more information see [How to Compile](https://github.com/jxcore/jxcore/blob/master/doc/Android_Compile.md) document.
 
 ```sh
 git clone https://github.com/jxcore/jxcore.git
@@ -25,12 +26,15 @@ to
 ARM64=out_arm64_droid
 ```
 
-For more information see [How to Compile](https://github.com/jxcore/jxcore/blob/master/doc/Android_Compile.md) document.
-
 #### Building jxcore-cordova binaries
-Refresh `jxcore-cordova/src/android/jxcore-binaries` folder contents:
+For more information see [Updating JXcore binaries](https://github.com/jxcore/jxcore-cordova#updating-jxcore-binaries-optional) document.
+
+Clone jxcore-cordova repository:
 ```sh
 git clone https://github.com/jxcore/jxcore-cordova.git
+```
+Refresh `jxcore-cordova/src/android/jxcore-binaries` folder contents:
+```sh
 cp -f /jxcore/out_android/android/bin/* jxcore-cordova/src/android/jxcore-binaries/
 ```
 Recompile .so files
@@ -38,6 +42,14 @@ Recompile .so files
 (cd jxcore-cordova-master/src/android/jni; $ANDROID_NDK/ndk-build) 
 ```
 Get your binaries from `jxcore-cordova/src/android/libs`
+
+##### ARM64
+
+Update makefiles:
+```sh
+cp Application.mk Android.mk jxcore-cordova/src/android/jni/
+```
+Then refresh jxcore binaries and recompile .so files.
 
 #### Installing libjxcore.so
 ```sh
@@ -51,11 +63,13 @@ get_jxcore_bin.sh $ANDROID_SDK
 ```
 
 #### Building APK
+
+Copy `build_jxcore_service.sh` to your project folder.
 ```sh
 build_jxcore_service.sh $ANDROID_SDK $ANDROID_NDK <X.Y.Z>
 ```
 #### JS here:
-#### ATTENTION! Do not modify jxcore_module.js
 ```
-strem-engine/app/src/main/assets/www/jxcore/
+<app-name>/app/src/main/assets/www/jxcore/
 ```
+#### JS - Java bindings are in the jxcore_module.js file.
