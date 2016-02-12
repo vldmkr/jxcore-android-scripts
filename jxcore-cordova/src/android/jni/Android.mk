@@ -91,32 +91,38 @@ LOCAL_SRC_FILES := $(JXCORE_OUT_ANDROID)libjx_arm64.a
 endif
 include $(PREBUILT_STATIC_LIBRARY)
 
-# include $(CLEAR_VARS)
-# LOCAL_MODULE := liblevel
-# ifeq ($(TARGET_ARCH),x86)
-# LOCAL_SRC_FILES := $(JXCORE_OUT_ANDROID)libleveldb_ia32.a
-# else
-# LOCAL_SRC_FILES := $(JXCORE_OUT_ANDROID)libleveldb_arm.a
-# endif
-# include $(PREBUILT_STATIC_LIBRARY)
+include $(CLEAR_VARS)
+LOCAL_MODULE := liblevel
+ifeq ($(TARGET_ARCH),x86)
+LOCAL_SRC_FILES := $(JXCORE_OUT_ANDROID)libleveldb_ia32.a
+else ifeq ($(TARGET_ARCH),arm)
+LOCAL_SRC_FILES := $(JXCORE_OUT_ANDROID)libleveldb_arm.a
+else
+LOCAL_SRC_FILES := $(JXCORE_OUT_ANDROID)libleveldb_arm64.a
+endif
+include $(PREBUILT_STATIC_LIBRARY)
 
-# include $(CLEAR_VARS)
-# LOCAL_MODULE := libsnappy
-# ifeq ($(TARGET_ARCH),x86)
-# LOCAL_SRC_FILES := $(JXCORE_OUT_ANDROID)libsnappy_ia32.a
-# else
-# LOCAL_SRC_FILES := $(JXCORE_OUT_ANDROID)libsnappy_arm.a
-# endif
-# include $(PREBUILT_STATIC_LIBRARY)
+include $(CLEAR_VARS)
+LOCAL_MODULE := libsnappy
+ifeq ($(TARGET_ARCH),x86)
+LOCAL_SRC_FILES := $(JXCORE_OUT_ANDROID)libsnappy_ia32.a
+else ifeq ($(TARGET_ARCH),arm)
+LOCAL_SRC_FILES := $(JXCORE_OUT_ANDROID)libsnappy_arm.a
+else
+LOCAL_SRC_FILES := $(JXCORE_OUT_ANDROID)libsnappy_arm64.a
+endif
+include $(PREBUILT_STATIC_LIBRARY)
 
-# include $(CLEAR_VARS)
-# LOCAL_MODULE := libdown
-# ifeq ($(TARGET_ARCH),x86)
-# LOCAL_SRC_FILES := $(JXCORE_OUT_ANDROID)libleveldown_ia32.a
-# else
-# LOCAL_SRC_FILES := $(JXCORE_OUT_ANDROID)libleveldown_arm.a
-# endif
-# include $(PREBUILT_STATIC_LIBRARY)
+include $(CLEAR_VARS)
+LOCAL_MODULE := libdown
+ifeq ($(TARGET_ARCH),x86)
+LOCAL_SRC_FILES := $(JXCORE_OUT_ANDROID)libleveldown_ia32.a
+else ifeq ($(TARGET_ARCH),arm)
+LOCAL_SRC_FILES := $(JXCORE_OUT_ANDROID)libleveldown_arm.a
+else
+LOCAL_SRC_FILES := $(JXCORE_OUT_ANDROID)libleveldown_arm64.a
+endif
+include $(PREBUILT_STATIC_LIBRARY)
 
 include $(CLEAR_VARS)
 NDK_TOOLCHAIN_VERSION := 4.8
@@ -130,6 +136,5 @@ LOCAL_LDLIBS := -llog \
                 -ldl \
                 -landroid
 LOCAL_STATIC_LIBRARIES := cares openssl
-# LOCAL_WHOLE_STATIC_LIBRARIES := chrome_zlib http_parser sqlite3 libuv liblevel libsnappy libdown libmozjs jxcore_native
-LOCAL_WHOLE_STATIC_LIBRARIES := chrome_zlib http_parser sqlite3 libuv libmozjs jxcore_native
+LOCAL_WHOLE_STATIC_LIBRARIES := chrome_zlib http_parser sqlite3 libuv liblevel libsnappy libdown libmozjs jxcore_native
 include $(BUILD_SHARED_LIBRARY)
